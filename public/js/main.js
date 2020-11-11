@@ -39,8 +39,8 @@ const outputMessage = (message) => {
   div.classList.add("message");
 
   div.innerHTML = `
-  <p class="meta">Tidbits <span>10:10pm</span></p>
-  <p class="text">${message}</p>
+  <p class="meta">${message.username}<span>${message.time}</span></p>
+  <p class="text">${message.text}</p>
   `;
 
   document.querySelector(".chat-messages").appendChild(div);
