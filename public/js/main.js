@@ -12,3 +12,5 @@ userSelect.addEventListener("click", () => {
     set = false;
   }
 });
+
+const socket = io();
