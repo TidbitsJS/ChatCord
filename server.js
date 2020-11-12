@@ -15,7 +15,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-const botName = "Jarvis";
+const botName = "J.A.R.V.I.S.";
 
 app.use(express.static(path.join(__dirname, "public")));
 io.on("connection", (socket) => {

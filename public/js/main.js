@@ -6,6 +6,7 @@ userSelect.addEventListener("click", () => {
   console.log(userSelect.dataset.set);
   if (set === false) {
     users.style.display = "block";
+    users.style.padding = "0px 10px";
     set = true;
   } else {
     users.style.display = "none";
@@ -34,7 +35,7 @@ socket.on("roomUsers", ({ room, users }) => {
 });
 
 socket.on("message", (message) => {
-  console.log(message);
+  console.log("message", message);
   outputMessage(message);
 
   chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -50,15 +51,26 @@ chatForm.addEventListener("submit", (e) => {
 });
 
 const outputMessage = (message) => {
-  const div = document.createElement("div");
-  div.classList.add("message");
+  const userDiv = document.createElement("div");
+  const botDiv = document.createElement("div");
+  userDiv.classList.add("message");
+  botDiv.classList.add("message");
 
-  div.innerHTML = `
-  <p class="meta">${message.username}<span>${message.time}</span></p>
-  <p class="text">${message.text}</p>
-  `;
+  if (message.username === "J.A.R.V.I.S.") {
+    botDiv.innerHTML = `
 
-  document.querySelector(".chat-messages").appendChild(div);
+      <p class="meta">${message.username}<span>${message.time}</span></p>
+      <p class="text"><i class="fas fa-robot"></i>${message.text}</p>
+    `;
+    document.querySelector(".chat-messages").appendChild(botDiv);
+  } else {
+    userDiv.innerHTML = `
+    <p class="meta">${message.username}<span>${message.time}</span></p>
+    <p class="text">${message.text}</p>
+    `;
+
+    document.querySelector(".chat-messages").appendChild(userDiv);
+  }
 };
 
 const outputRoomName = (room) => {
@@ -70,7 +82,7 @@ const outputRoomUsers = (users) => {
     ${users
       .map(
         (user) => `
-      <li>${user.username}</li>
+      <li> <i class="fab fa-discord"></i> ${user.username}</li>
     `
       )
       .join("")}
